@@ -1,13 +1,12 @@
 package webservice;
 
 /**
- * CommStatusBase is abstract base class that defined some method that will be called on CommRequestMessageTask.
+ * CommBaseStatus is abstract base class that defined some method that will be called on CommRequestMessageTask.
  * we can override some methods and custom sending format for different
  */
-public abstract class CommStatusBase {
+public abstract class CommBaseStatus {
 
 	private String _url = "";
-	private String _data_str = "";
 	private CommType _comm_type = CommType.HttpPost;
 
 	/**
@@ -41,20 +40,12 @@ public abstract class CommStatusBase {
 	}
 
 	/**
-	 * Set Http/Post data string.
-	 * @param str Http/Post data string.
-	 */
-	public void setDataString(String str) {
-		this._data_str = str;
-	}
-
-	/**
 	 * Get data string that will be sent.
 	 * @return Data string.
 	 */
-	protected String getDataString() {
-		return _data_str;
-	}
+//	protected String getDataString() {
+//		return _data_str;
+//	}
 
 	/**
 	 * Set connection mode as Http/Post or Http/Get.

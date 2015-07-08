@@ -27,20 +27,11 @@ import webservice.task.CommRequestMessageTask;
  * @param <SendType> The requesting type.
  * @param <ReturnType> The responding type.
  */
-public class CommRequestJsonMsg<SendType, ReturnType> extends CommBaseRequest {
+public class CommRequestJsonMsg<ReturnType> extends CommBaseRequest {
 
 	private RequestJsonMsgCallback<ReturnType> _callback;
-	private TypeToken<SendType> _send_type_token;
 	private TypeToken<ReturnType> _return_type_token;
-	private SendType _send_data;
-	private CommStatusBase _comm_obj = new DefaultStatus();
-
-	/**
-	 * Default status object.
-	 */
-	private class DefaultStatus extends CommStatusBase {
-
-	}
+	private CommBaseStatus _comm_obj;
 
 	/**
 	 * Callback object. Convert string to return type object using Gson library.
@@ -98,47 +89,21 @@ public class CommRequestJsonMsg<SendType, ReturnType> extends CommBaseRequest {
 	/**
 	 * Constructor.
 	 *
-	 * @param send_data Sending data object.
 	 * @param callback Callback object implemented RequestJsonMsgCallback<> interface
-	 * @param send_type_token Gson TypeToken object of requesting data type.
 	 * @param return_type_token Gson TypeToken object of responding data type.
 	 */
 	public CommRequestJsonMsg(
-			SendType send_data,
 			RequestJsonMsgCallback<ReturnType> callback,
-			TypeToken<SendType> send_type_token,
-			TypeToken<ReturnType> return_type_token) {
+			TypeToken<ReturnType> return_type_token,
+			CommBaseStatus comm_obj) {
 
-		setSendData(send_data);
-		setRequestCallback(callback);
-		setSendDataTypeToken(send_type_token);
-		setReturnDataTypeToken(return_type_token);
-	}
-
-	private void setSendData(SendType send_data) {
-		_send_data = send_data;
-	}
-
-	private void setRequestCallback(RequestJsonMsgCallback<ReturnType> call_back) {
-		_callback = call_back;
-	}
-
-	private void setSendDataTypeToken(TypeToken<SendType> type_token) {
-		_send_type_token = type_token;
-	}
-
-	private void setReturnDataTypeToken(TypeToken<ReturnType> type_token) {
-		_return_type_token = type_token;
-	}
-
-	public void setCommObj(CommStatusBase obj) {
-		_comm_obj = obj;
+		this._callback = callback;
+		this._return_type_token = return_type_token;
+		this._comm_obj = comm_obj;
 	}
 
 	@Override
 	public void runRequest() {
-		_comm_obj.setDataString(new Gson().toJson(_send_data, _send_type_token.getType()));
-
 		CommRequestMessageTask send_data_http = new CommRequestMessageTask();
 		send_data_http.addCompleteNotify(new TaskCompleteAction());
 		send_data_http.execute(_comm_obj);

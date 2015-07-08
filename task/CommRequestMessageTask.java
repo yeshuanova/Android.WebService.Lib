@@ -3,7 +3,7 @@ package webservice.task;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import webservice.CommStatusBase;
+import webservice.CommBaseStatus;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,11 +18,11 @@ import java.util.List;
 
 /**
  * CommRequestMessageTask extended from Android AsyncTask<> requests a message string to server
- * and responds string message. We use abstract class CommStatusBase to implement connection setting
+ * and responds string message. We use abstract class CommBaseStatus to implement connection setting
  * like url, http get/post, and sending string. When sending message completion, we call all register
  * interface ITaskCompleteAction to return data.
  */
-public class CommRequestMessageTask extends AsyncTask<CommStatusBase, Void, String> {
+public class CommRequestMessageTask extends AsyncTask<CommBaseStatus, Void, String> {
 
 	private boolean _comm_success = false;
 	private List<ITaskCompleteAction> _complete_notify = new ArrayList<>();
@@ -57,12 +57,12 @@ public class CommRequestMessageTask extends AsyncTask<CommStatusBase, Void, Stri
 	 * @return Data string (successful) or error message (failure).
 	 */
 	@Override
-	protected String doInBackground(CommStatusBase... data) {
+	protected String doInBackground(CommBaseStatus... data) {
 		String res_str = "";
 		_comm_success = false;
 		try {
 			
-			CommStatusBase comm_data = data[0];
+			CommBaseStatus comm_data = data[0];
 			
 			Log.i(this.getClass().getName(), "URL : " + comm_data.getRequestURL());
 			URL url = new URL(comm_data.getRequestURL());

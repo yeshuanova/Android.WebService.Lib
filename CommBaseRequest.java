@@ -43,7 +43,7 @@ public abstract class CommBaseRequest {
     public abstract void runRequest();
 
     /**
-     * Add notification object to completed notification list.
+     * Add notification object to completion notification list.
      *
      * @param notify Notification object
      */
