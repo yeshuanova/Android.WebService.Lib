@@ -1,8 +1,7 @@
 # Android WebService Library
 
 ## Introduction
-This project is a simple web request service library for Android platform. You can use `git subtree` command to pull this library to your Android project. 
-Bcreate custom **Request** or **Task** by user.
+This project is a simple web request service library for Android platform. You can use `git subtree` command to pull this library to your Android project and create custom **Request** or **Task** class yourself.
 
 ## Basic Concept
 There are three parts - `Task`, `Request` and `RequestManager`, in this library.
